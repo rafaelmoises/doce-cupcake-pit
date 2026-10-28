@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block titulo %}Erro de estoque{% endblock %}
+{% block corpo %}
+<h1>Finalizar pedido</h1>
+<div class="alerta alerta-erro" role="alert">{{ mensagem }} Ajuste as quantidades no carrinho.</div>
+<a class="btn" href="{{ url_for('loja.carrinho') }}">Voltar ao carrinho</a>
+{% endblock %}

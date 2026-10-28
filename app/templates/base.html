@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Cupcakes{% endblock %} · Doce Cupcake</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body>
+<header class="topo">
+  <nav class="nav">
+    <a class="logo" href="{{ url_for('loja.vitrine') }}">🧁 Doce Cupcake</a>
+    {% if usuario and usuario.eh_admin %}
+      <a href="{{ url_for('admin.produtos') }}">Produtos</a>
+      <a href="{{ url_for('admin.categorias') }}">Categorias</a>
+      <a href="{{ url_for('admin.pedidos') }}">Pedidos</a>
+    {% else %}
+      <a href="{{ url_for('loja.vitrine') }}">Vitrine</a>
+      {% if usuario %}<a href="{{ url_for('pedido.meus_pedidos') }}">Meus pedidos</a>{% endif %}
+    {% endif %}
+    <span class="espaco"></span>
+    {% if not (usuario and usuario.eh_admin) %}
+      <a href="{{ url_for('loja.carrinho') }}">Carrinho <span class="badge">{{ qtd_carrinho }}</span></a>
+    {% endif %}
+    {% if usuario %}
+      <span class="ola">Olá, {{ usuario.nome.split()[0] }}</span>
+      <form method="post" action="{{ url_for('auth.logout') }}" class="inline">
+        <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+        <button class="btn btn-sec">Sair</button>
+      </form>
+    {% else %}
+      <a class="btn" href="{{ url_for('auth.login') }}">Entrar</a>
+    {% endif %}
+  </nav>
+</header>
+<main class="conteudo">
+  {% with msgs = get_flashed_messages(with_categories=true) %}
+    {% for cat, m in msgs %}<div class="alerta alerta-{{ cat }}" role="alert">{{ m }}</div>{% endfor %}
+  {% endwith %}
+  {% block corpo %}{% endblock %}
+</main>
+<footer class="rodape">Doce Cupcake · projeto acadêmico (PIT) · pagamentos simulados</footer>
+</body>
+</html>

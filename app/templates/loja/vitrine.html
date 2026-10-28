@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block titulo %}Vitrine{% endblock %}
+{% block corpo %}
+<h1>Nossos cupcakes</h1>
+<form class="filtros" method="get">
+  <input name="q" value="{{ q }}" placeholder="🔍 Buscar cupcake..." aria-label="Buscar">
+  <select name="categoria" aria-label="Categoria">
+    <option value="">Todas as categorias</option>
+    {% for c in categorias %}<option value="{{ c.id }}" {{ 'selected' if cat == c.id }}>{{ c.nome }}</option>{% endfor %}
+  </select>
+  <button class="btn">Filtrar</button>
+</form>
+{% if produtos %}
+<div class="grade">{% for p in produtos %}{% include "loja/_card.html" %}{% endfor %}</div>
+{% else %}<p class="vazio">Nenhum cupcake encontrado. Tente outra busca.</p>{% endif %}
+{% endblock %}

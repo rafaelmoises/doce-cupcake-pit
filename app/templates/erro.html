@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block corpo %}
+<section class="caixa centro">
+  <h1>{{ codigo }} · {{ titulo }}</h1>
+  <p>{{ mensagem }}</p>
+  <a class="btn" href="{{ url_for('loja.vitrine') }}">Voltar à vitrine</a>
+</section>
+{% endblock %}

@@ -1,0 +1,15 @@
+<article class="card">
+  <a href="{{ url_for('loja.detalhe', pid=p.id) }}" class="foto cor{{ p.id % 5 }}">
+    {% if p.imagem_url %}<img src="{{ p.imagem_url }}" alt="{{ p.nome }}">{% else %}<span>🧁</span>{% endif %}
+  </a>
+  <h3><a href="{{ url_for('loja.detalhe', pid=p.id) }}">{{ p.nome }}</a></h3>
+  <p class="cat">{{ p.categoria.nome }}</p>
+  <p class="preco">{{ p.preco|brl }}</p>
+  {% if p.disponivel %}
+  <form method="post" action="{{ url_for('loja.adicionar', pid=p.id) }}">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+    <input type="hidden" name="quantidade" value="1">
+    <button class="btn">Adicionar</button>
+  </form>
+  {% else %}<span class="esgotado">Esgotado</span>{% endif %}
+</article>

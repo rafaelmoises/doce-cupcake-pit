@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block titulo %}Admin · Pedidos{% endblock %}
+{% block corpo %}
+<h1>Gerenciar pedidos</h1>
+<table class="tabela">
+  <thead><tr><th>Nº</th><th>Cliente</th><th>Total</th><th>Pagamento</th><th>Entrega</th><th>Ação</th></tr></thead>
+  <tbody>{% for p in pedidos %}
+  {% set idx = p.entrega.indice_status %}
+  <tr>
+    <td>#{{ p.id }}</td><td>{{ p.usuario.nome }}</td><td>{{ p.total|brl }}</td>
+    <td>{{ p.pagamento.metodo }} · {{ p.pagamento.status }}
+      {% if p.pagamento.status == 'pendente' %}
+      <form method="post" action="{{ url_for('admin.pedido_pagamento', pid=p.id) }}" class="inline">
+        <input type="hidden" name="_csrf" value="{{ csrf_token() }}"><button class="link">Confirmar</button></form>{% endif %}</td>
+    <td>{{ p.entrega.rotulo }}</td>
+    <td>{% if idx < etapas|length - 1 %}
+      <form method="post" action="{{ url_for('admin.pedido_status', pid=p.id) }}" class="inline">
+        <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+        <input type="hidden" name="status" value="{{ etapas[idx + 1] }}">
+        <button class="btn btn-sec">→ {{ rotulos[etapas[idx + 1]] }}</button>
+      </form>{% else %}✔{% endif %}</td>
+  </tr>{% endfor %}</tbody>
+</table>
+{% if not pedidos %}<p class="vazio">Nenhum pedido ainda.</p>{% endif %}
+{% endblock %}

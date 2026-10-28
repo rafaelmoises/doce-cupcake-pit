@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block titulo %}Pedido confirmado{% endblock %}
+{% block corpo %}
+<div class="alerta alerta-ok">Pedido #{{ p.id }} realizado com sucesso!</div>
+<h1>Resumo do pedido</h1>
+<table class="tabela">
+  <thead><tr><th>Item</th><th>Qtd</th><th>Preço</th><th>Subtotal</th></tr></thead>
+  <tbody>{% for i in p.itens %}<tr><td>{{ i.produto.nome }}</td><td>{{ i.quantidade }}</td><td>{{ i.preco_unitario|brl }}</td><td>{{ i.subtotal()|brl }}</td></tr>{% endfor %}</tbody>
+</table>
+<p>Subtotal: {{ p.subtotal|brl }} · Entrega: {{ p.taxa_entrega|brl }} · <strong>Total: {{ p.total|brl }}</strong></p>
+<p>Pagamento: <strong>{{ p.pagamento.metodo|upper }}</strong> ({{ p.pagamento.status }})</p>
+<p>{% if p.entrega.tipo == 'entrega' %}Entrega em: {{ p.entrega.endereco }}{% else %}Retirada na loja{% endif %} · Previsão: {{ p.entrega.previsao|data }}</p>
+<a class="btn" href="{{ url_for('pedido.acompanhar', pid=p.id) }}">Acompanhar pedido</a>
+<a class="btn btn-sec" href="{{ url_for('loja.vitrine') }}">Voltar à vitrine</a>
+{% endblock %}

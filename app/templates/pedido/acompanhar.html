@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block titulo %}Pedido #{{ p.id }}{% endblock %}
+{% block corpo %}
+<h1>Pedido #{{ p.id }}</h1>
+<ol class="linha-tempo">
+  {% for e in etapas %}<li class="{{ 'feito' if loop.index0 <= p.entrega.indice_status }}">{{ rotulos[e] }}</li>{% endfor %}
+</ol>
+<p>Previsão de entrega: <strong>{{ p.entrega.previsao|data }}</strong> ·
+   {% if p.entrega.tipo == 'entrega' %}{{ p.entrega.endereco }}{% else %}Retirada na loja{% endif %}</p>
+<table class="tabela">
+  <thead><tr><th>Item</th><th>Qtd</th><th>Subtotal</th></tr></thead>
+  <tbody>{% for i in p.itens %}<tr><td>{{ i.produto.nome }}</td><td>{{ i.quantidade }}</td><td>{{ i.subtotal()|brl }}</td></tr>{% endfor %}</tbody>
+</table>
+<p>Total: <strong>{{ p.total|brl }}</strong> · Pagamento {{ p.pagamento.metodo }}: {{ p.pagamento.status }}</p>
+<a href="{{ url_for('pedido.meus_pedidos') }}">← Meus pedidos</a>
+{% endblock %}

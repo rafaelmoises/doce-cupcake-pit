@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block titulo %}Finalizar pedido{% endblock %}
+{% block corpo %}
+<h1>Finalizar pedido</h1>
+<form method="post" class="duas-colunas" id="form-pedido">
+  <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+  <div class="caixa">
+    <h2>1. Entrega</h2>
+    <label class="radio"><input type="radio" name="tipo" value="entrega" {{ 'checked' if form.get('tipo','entrega') == 'entrega' }}> Entregar no meu endereço</label>
+    <label class="radio"><input type="radio" name="tipo" value="retirada" {{ 'checked' if form.get('tipo') == 'retirada' }}> Retirar na loja (sem taxa)</label>
+    <div id="campos-endereco">
+      <label for="cep">CEP</label><input id="cep" name="cep" value="{{ form.get('cep','') }}" placeholder="00000-000">
+      <label for="logradouro">Rua</label><input id="logradouro" name="logradouro" value="{{ form.get('logradouro','') }}">
+      <div class="linha">
+        <div><label for="numero">Número</label><input id="numero" name="numero" value="{{ form.get('numero','') }}"></div>
+        <div><label for="complemento">Complemento</label><input id="complemento" name="complemento" value="{{ form.get('complemento','') }}"></div>
+      </div>
+      <label for="bairro">Bairro</label><input id="bairro" name="bairro" value="{{ form.get('bairro','') }}">
+      <div class="linha">
+        <div><label for="cidade">Cidade</label><input id="cidade" name="cidade" value="{{ form.get('cidade','') }}"></div>
+        <div><label for="uf">UF</label><input id="uf" name="uf" maxlength="2" value="{{ form.get('uf','') }}" class="curto"></div>
+      </div>
+    </div>
+    <h2>2. Pagamento</h2>
+    {% for v, r in [('pix','Pix'),('cartao','Cartão de crédito'),('boleto','Boleto')] %}
+    <label class="radio"><input type="radio" name="metodo" value="{{ v }}" {{ 'checked' if form.get('metodo','pix') == v }}> {{ r }}</label>
+    {% endfor %}
+    <p class="dica">Pagamento simulado: Pix e cartão são aprovados na hora; boleto fica pendente até a loja confirmar.</p>
+  </div>
+  <aside class="caixa resumo">
+    <h2>Resumo</h2>
+    <ul>{% for l in linhas %}<li>{{ l.quantidade }}× {{ l.produto.nome }} <span>{{ l.subtotal|brl }}</span></li>{% endfor %}</ul>
+    <p>Subtotal <span>{{ subtotal|brl }}</span></p>
+    <p>Entrega <span id="taxa">{{ taxa|brl }}</span></p>
+    <p class="total">Total <strong>{{ total|brl }}</strong></p>
+    <p class="dica">Frete grátis a partir de R$ 120,00.</p>
+    <button class="btn">Confirmar pedido</button>
+  </aside>
+</form>
+<script>
+  const f = document.getElementById('form-pedido'), c = document.getElementById('campos-endereco');
+  function alterna(){ c.style.display = f.tipo.value === 'retirada' ? 'none' : 'block'; }
+  f.querySelectorAll('input[name=tipo]').forEach(r => r.addEventListener('change', alterna)); alterna();
+</script>
+{% endblock %}

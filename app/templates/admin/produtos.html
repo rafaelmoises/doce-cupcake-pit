@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block titulo %}Admin · Produtos{% endblock %}
+{% block corpo %}
+<h1>Gerenciar produtos</h1>
+<p><a class="btn" href="{{ url_for('admin.produto_novo') }}">+ Novo produto</a></p>
+<table class="tabela">
+  <thead><tr><th>Nome</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Situação</th><th>Ações</th></tr></thead>
+  <tbody>{% for p in produtos %}
+  <tr class="{{ '' if p.ativo else 'inativo' }}">
+    <td>{{ p.nome }}</td><td>{{ p.categoria.nome }}</td><td>{{ p.preco|brl }}</td>
+    <td class="{{ 'baixo' if p.estoque < 5 }}">{{ p.estoque }}</td><td>{{ 'Ativo' if p.ativo else 'Inativo' }}</td>
+    <td>
+      <a href="{{ url_for('admin.produto_editar', pid=p.id) }}">Editar</a>
+      <form method="post" action="{{ url_for('admin.produto_alternar', pid=p.id) }}" class="inline">
+        <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+        <button class="link">{{ 'Desativar' if p.ativo else 'Ativar' }}</button>
+      </form>
+    </td>
+  </tr>{% endfor %}</tbody>
+</table>
+{% endblock %}

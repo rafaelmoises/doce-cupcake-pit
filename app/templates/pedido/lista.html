@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block titulo %}Meus pedidos{% endblock %}
+{% block corpo %}
+<h1>Meus pedidos</h1>
+{% if pedidos %}
+<table class="tabela">
+  <thead><tr><th>Nº</th><th>Data</th><th>Total</th><th>Pagamento</th><th>Entrega</th><th></th></tr></thead>
+  <tbody>{% for p in pedidos %}
+  <tr><td>#{{ p.id }}</td><td>{{ p.criado_em|data }}</td><td>{{ p.total|brl }}</td><td>{{ p.pagamento.status }}</td><td>{{ p.entrega.rotulo }}</td>
+      <td><a href="{{ url_for('pedido.acompanhar', pid=p.id) }}">Detalhes</a></td></tr>{% endfor %}</tbody>
+</table>
+{% else %}<p class="vazio">Você ainda não fez pedidos. <a href="{{ url_for('loja.vitrine') }}">Ver a vitrine</a></p>{% endif %}
+{% endblock %}

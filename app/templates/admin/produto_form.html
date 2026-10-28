@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block titulo %}Admin · Produto{% endblock %}
+{% block corpo %}
+{% set v = form if form else {} %}
+<section class="caixa estreita">
+  <h1>{{ 'Editar' if p else 'Novo' }} produto</h1>
+  <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+    <label for="nome">Nome</label><input id="nome" name="nome" value="{{ v.get('nome', p.nome if p else '') }}" required>
+    <label for="categoria_id">Categoria</label>
+    <select id="categoria_id" name="categoria_id" required>
+      <option value="">Escolha...</option>
+      {% for c in categorias %}<option value="{{ c.id }}" {{ 'selected' if (v.get('categoria_id', p.categoria_id if p else '')|string) == c.id|string }}>{{ c.nome }}</option>{% endfor %}
+    </select>
+    <label for="descricao">Descrição</label><textarea id="descricao" name="descricao" rows="3">{{ v.get('descricao', p.descricao if p else '') }}</textarea>
+    <div class="linha">
+      <div><label for="preco">Preço (R$)</label><input id="preco" name="preco" value="{{ v.get('preco', p.preco if p else '') }}" required></div>
+      <div><label for="estoque">Estoque</label><input id="estoque" name="estoque" type="number" min="0" value="{{ v.get('estoque', p.estoque if p else 0) }}" required></div>
+    </div>
+    <label for="imagem_url">URL da imagem (opcional)</label><input id="imagem_url" name="imagem_url" value="{{ v.get('imagem_url', (p.imagem_url or '') if p else '') }}">
+    <button class="btn">Salvar</button> <a href="{{ url_for('admin.produtos') }}">Cancelar</a>
+  </form>
+</section>
+{% endblock %}

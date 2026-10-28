@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Admin · Categorias{% endblock %}
+{% block corpo %}
+<h1>Categorias</h1>
+<form method="post" class="filtros">
+  <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+  <input name="nome" placeholder="Nome da categoria" required aria-label="Nome">
+  <input name="descricao" placeholder="Descrição (opcional)" aria-label="Descrição">
+  <button class="btn">Adicionar</button>
+</form>
+<table class="tabela">
+  <thead><tr><th>Nome</th><th>Descrição</th><th>Produtos</th><th></th></tr></thead>
+  <tbody>{% for c in categorias %}<tr><td>{{ c.nome }}</td><td>{{ c.descricao or '' }}</td><td>{{ c.produtos|length }}</td>
+    <td><form method="post" action="{{ url_for('admin.categoria_excluir', cid=c.id) }}" class="inline">
+      <input type="hidden" name="_csrf" value="{{ csrf_token() }}"><button class="link">Excluir</button></form></td></tr>{% endfor %}</tbody>
+</table>
+{% endblock %}
