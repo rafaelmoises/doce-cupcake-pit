@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+instance/
+*.db
+.venv/
+.pytest_cache/
+.coverage
+nohup.out
