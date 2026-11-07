@@ -1,0 +1,450 @@
+{
+ "categorias": [
+  {
+   "coluna": "id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": true,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "nome",
+   "tipo": "VARCHAR(60)",
+   "nulo": false,
+   "pk": false,
+   "unico": true,
+   "fk": []
+  },
+  {
+   "coluna": "descricao",
+   "tipo": "VARCHAR(200)",
+   "nulo": true,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  }
+ ],
+ "usuarios": [
+  {
+   "coluna": "id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": true,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "nome",
+   "tipo": "VARCHAR(120)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "email",
+   "tipo": "VARCHAR(160)",
+   "nulo": false,
+   "pk": false,
+   "unico": true,
+   "fk": []
+  },
+  {
+   "coluna": "senha_hash",
+   "tipo": "VARCHAR(255)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "telefone",
+   "tipo": "VARCHAR(20)",
+   "nulo": true,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "perfil",
+   "tipo": "VARCHAR(10)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "criado_em",
+   "tipo": "DATETIME",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  }
+ ],
+ "enderecos": [
+  {
+   "coluna": "id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": true,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "usuario_id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": [
+    "usuarios.id"
+   ]
+  },
+  {
+   "coluna": "cep",
+   "tipo": "VARCHAR(9)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "logradouro",
+   "tipo": "VARCHAR(160)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "numero",
+   "tipo": "VARCHAR(10)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "complemento",
+   "tipo": "VARCHAR(80)",
+   "nulo": true,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "bairro",
+   "tipo": "VARCHAR(80)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "cidade",
+   "tipo": "VARCHAR(80)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "uf",
+   "tipo": "VARCHAR(2)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  }
+ ],
+ "pedidos": [
+  {
+   "coluna": "id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": true,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "usuario_id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": [
+    "usuarios.id"
+   ]
+  },
+  {
+   "coluna": "status",
+   "tipo": "VARCHAR(12)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "subtotal",
+   "tipo": "NUMERIC(10, 2)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "taxa_entrega",
+   "tipo": "NUMERIC(10, 2)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "total",
+   "tipo": "NUMERIC(10, 2)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "criado_em",
+   "tipo": "DATETIME",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  }
+ ],
+ "produtos": [
+  {
+   "coluna": "id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": true,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "categoria_id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": [
+    "categorias.id"
+   ]
+  },
+  {
+   "coluna": "nome",
+   "tipo": "VARCHAR(100)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "descricao",
+   "tipo": "VARCHAR(500)",
+   "nulo": true,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "preco",
+   "tipo": "NUMERIC(10, 2)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "estoque",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "imagem_url",
+   "tipo": "VARCHAR(255)",
+   "nulo": true,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "ativo",
+   "tipo": "BOOLEAN",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  }
+ ],
+ "entregas": [
+  {
+   "coluna": "id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": true,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "pedido_id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": false,
+   "unico": true,
+   "fk": [
+    "pedidos.id"
+   ]
+  },
+  {
+   "coluna": "endereco_id",
+   "tipo": "INTEGER",
+   "nulo": true,
+   "pk": false,
+   "unico": false,
+   "fk": [
+    "enderecos.id"
+   ]
+  },
+  {
+   "coluna": "tipo",
+   "tipo": "VARCHAR(10)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "status",
+   "tipo": "VARCHAR(20)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "previsao",
+   "tipo": "DATE",
+   "nulo": true,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "entregue_em",
+   "tipo": "DATETIME",
+   "nulo": true,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  }
+ ],
+ "itens_pedido": [
+  {
+   "coluna": "id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": true,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "pedido_id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": [
+    "pedidos.id"
+   ]
+  },
+  {
+   "coluna": "produto_id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": [
+    "produtos.id"
+   ]
+  },
+  {
+   "coluna": "quantidade",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "preco_unitario",
+   "tipo": "NUMERIC(10, 2)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  }
+ ],
+ "pagamentos": [
+  {
+   "coluna": "id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": true,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "pedido_id",
+   "tipo": "INTEGER",
+   "nulo": false,
+   "pk": false,
+   "unico": true,
+   "fk": [
+    "pedidos.id"
+   ]
+  },
+  {
+   "coluna": "metodo",
+   "tipo": "VARCHAR(10)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "status",
+   "tipo": "VARCHAR(10)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "valor",
+   "tipo": "NUMERIC(10, 2)",
+   "nulo": false,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  },
+  {
+   "coluna": "pago_em",
+   "tipo": "DATETIME",
+   "nulo": true,
+   "pk": false,
+   "unico": false,
+   "fk": []
+  }
+ ]
+}

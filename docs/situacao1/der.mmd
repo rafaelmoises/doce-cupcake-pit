@@ -1,0 +1,59 @@
+erDiagram
+    USUARIOS ||--o{ ENDERECOS : possui
+    USUARIOS ||--o{ PEDIDOS : realiza
+    CATEGORIAS ||--o{ PRODUTOS : classifica
+    PEDIDOS ||--|{ ITENS_PEDIDO : contem
+    PRODUTOS ||--o{ ITENS_PEDIDO : "aparece em"
+    PEDIDOS ||--|| PAGAMENTOS : "e pago por"
+    PEDIDOS ||--|| ENTREGAS : "e entregue por"
+    ENDERECOS ||--o{ ENTREGAS : destino
+    USUARIOS { int id PK
+      string nome
+      string email UK
+      string senha_hash
+      string telefone
+      string perfil
+      datetime criado_em }
+    ENDERECOS { int id PK
+      int usuario_id FK
+      string cep
+      string logradouro
+      string numero
+      string bairro
+      string cidade
+      string uf }
+    CATEGORIAS { int id PK
+      string nome UK
+      string descricao }
+    PRODUTOS { int id PK
+      int categoria_id FK
+      string nome
+      decimal preco
+      int estoque
+      string imagem_url
+      bool ativo }
+    PEDIDOS { int id PK
+      int usuario_id FK
+      string status
+      decimal subtotal
+      decimal taxa_entrega
+      decimal total
+      datetime criado_em }
+    ITENS_PEDIDO { int id PK
+      int pedido_id FK
+      int produto_id FK
+      int quantidade
+      decimal preco_unitario }
+    PAGAMENTOS { int id PK
+      int pedido_id FK, UK
+      string metodo
+      string status
+      decimal valor
+      datetime pago_em }
+    ENTREGAS { int id PK
+      int pedido_id FK, UK
+      int endereco_id FK
+      string tipo
+      string status
+      date previsao
+      datetime entregue_em }
