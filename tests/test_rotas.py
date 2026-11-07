@@ -154,3 +154,7 @@ def test_admin_atualiza_status_e_confirma_boleto(cliente_logado, client):
 def test_admin_categoria_com_produtos_nao_exclui(admin_logado):
     r = admin_logado.post("/admin/categorias/1/excluir", follow_redirects=True)
     assert "possui produtos".encode() in r.data
+
+
+def test_entrar_abre_a_tela_de_login(client):
+    assert client.get("/entrar").status_code == 200
