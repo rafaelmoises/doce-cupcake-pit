@@ -11,6 +11,8 @@ class Config:
         _db = "postgresql+psycopg2://" + _db[len("postgresql://"):]
     SQLALCHEMY_DATABASE_URI = _db
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # Neon/Render "dormem" por inatividade e derrubam conexões ociosas: testa a conexão antes de usar
+    SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True, "pool_recycle": 280}
     TAXA_ENTREGA = "8.00"          # RN04
     FRETE_GRATIS_A_PARTIR_DE = "120.00"  # RN04
 
